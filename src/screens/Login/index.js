@@ -8,7 +8,7 @@ import {useNavigation} from "@react-navigation/native"
 
 
 const Login = () => {
-  const { loginContext } = useContext(AuthContext);
+  const { signIn } = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -16,7 +16,7 @@ const Login = () => {
  
   const handleSignIn = async () => {
     if (username != "" && password != "") {
-      loginContext(username, password);
+      signIn(username, password);
     }
   };
   function handleLogin () {
@@ -56,7 +56,7 @@ const Login = () => {
          />
 
         <View>
-          <TouchableOpacity onPress={handleLogin} style={styles.button} >
+          <TouchableOpacity onPress={handleSignIn} style={styles.button} >
             <Text style={styles.textButton}>SIGN IN </Text>
           </TouchableOpacity>
 

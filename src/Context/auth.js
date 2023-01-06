@@ -1,11 +1,13 @@
 import React, { createContext, useEffect, useState } from "react";
-import userService from "../services/request/userService";
+import api from "../services/api";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {useNavigation} from "@react-navigation/native"
 
 
 
 const AuthContext = createContext({});
 export const AuthProvider = ({ children }) => {
-   
+    const navigation = useNavigation();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [username, setUsername] = useState("");
     const [userId, setUserId] = useState("");
@@ -13,23 +15,23 @@ export const AuthProvider = ({ children }) => {
 
 
     useEffect(() => {
-    userService.getAll().then(users => {
+    api.get("users").then(users => {
      setUsers(users);
+     console.log(users)
     })
 }, [])   
 
     function signIn(username, password) {
         users?.data.find(user => {
-            
             if(username !== "" && password !== "") {
                 if (user.login === username && user.password === password) {
-                    localStorage.setItem("@authenticated", true);
-                    localStorage.setItem("@id", user.id);
-                    localStorage.setItem("@user", user.login);
-                    localStorage.setItem("@password", user.password);
+                    AsyncStorage.setItem("@authenticated", true);
+                    AsyncStorage.setItem("@id", user.id);
+                    AsyncStorage.setItem("@user", user.login);
+                    AsyncStorage.setItem("@password", user.password);
                     setIsAuthenticated(true); 
                     setUsername(user.login);
-                    
+                    navigation.navigate("Home")
             }
             
            
@@ -40,9 +42,9 @@ export const AuthProvider = ({ children }) => {
      const signOut = () => {
         setIsAuthenticated(false);
         setUserId(""); 
-        localStorage.removeItem("id");
-        localStorage.removeItem("@authenticated");
-        localStorage.removeItem("@id");
+        AsyncStorage.removeItem("id");
+        AsyncStorage.removeItem("@authenticated");
+        AsyncStorage.removeItem("@id");
      
 
        
@@ -57,12 +59,12 @@ export const AuthProvider = ({ children }) => {
                 signOut,
                 userId,
                 username,
-                password
+                
             }}
         >
             {children}
         </AuthContext.Provider>
-         <ToastContainer />
+         
         </>
 
     );
