@@ -45,6 +45,7 @@ export const AuthProvider = ({ children }) => {
         AsyncStorage.removeItem("id");
         AsyncStorage.removeItem("@authenticated");
         AsyncStorage.removeItem("@id");
+        navigation.navigate("Login")
      
 
        

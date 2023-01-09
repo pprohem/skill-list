@@ -4,9 +4,10 @@ import {useNavigation} from "@react-navigation/native"
 import {View, Text, TextInput, TouchableOpacity, Modal} from "react-native";
 import Card from "../../components/Card";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import AuthContext from "../../Context/auth";
 
 const Home = () => {
-
+const { signOut} = useContext(AuthContext);
   const navigation = useNavigation();
        
 
@@ -18,11 +19,7 @@ const Home = () => {
   console.log(AsyncStorage.getItem("@user") )
   
     
-//    function handleLogout () {
-//      signOut();
-//      navigation.navigate("Login");
 
-//    }
    
    return (
         <View style={styles.containerHome}>
@@ -35,7 +32,7 @@ const Home = () => {
               
             </TouchableOpacity>
             
-            <TouchableOpacity style={styles.button}
+            <TouchableOpacity onPress={signOut}style={styles.button}
             >
                 <Text style={styles.buttonText}>
                     Logout

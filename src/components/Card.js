@@ -6,21 +6,7 @@ import {View, Text, FlatList, TextInput, TouchableOpacity, Image } from "react-n
 
 
 const Card = () => {
-    // const [skills, setSkills] = useState([])
-
-
-    // useEffect (() => {
-    //     api.get("skills")
-    //     .then((res) => {
-    //         var getSkill = res.data 
-    //         console.log(getSkill)
-    //         setSkills(getSkill)
-    //     })
-    //     .catch((err) => {
-    //         console.error("ops! ocorreu um erro" + err);
-    
-    //     })
-    // }, []);
+   
     const [skills, setSkills] = useState ([])
     const [userSkills, setUserSkills] = useState([])
     
